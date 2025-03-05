@@ -248,7 +248,7 @@ class _BudgetInsightsScreenState extends State<BudgetInsightsScreen> {
                         primaryXAxis: DateTimeAxis(
                           dateFormat: DateFormat('MM/dd'),
                           intervalType: DateTimeIntervalType.days,
-                          interval: 50, // Show every 2 days to prevent overlap
+                          interval: 10, // Show every 2 days to prevent overlap
                           majorGridLines: MajorGridLines(width: 0),
                           edgeLabelPlacement: EdgeLabelPlacement.shift,
                           labelRotation: -45, // Rotate labels to prevent overlap
@@ -275,7 +275,7 @@ class _BudgetInsightsScreenState extends State<BudgetInsightsScreen> {
                             dataSource: _historicalData,
                             xValueMapper: (_ChartData data, _) => data.date,
                             yValueMapper: (_ChartData data, _) => data.value,
-                            name: 'Historical',
+                            name: 'Current',
                             color: Colors.blue.withOpacity(0.7),
                             borderColor: Colors.blue,
                             borderWidth: 2,
@@ -293,7 +293,7 @@ class _BudgetInsightsScreenState extends State<BudgetInsightsScreen> {
                             dataSource: _predictionData,
                             xValueMapper: (_ChartData data, _) => data.date,
                             yValueMapper: (_ChartData data, _) => data.value,
-                            name: 'Prediction',
+                            name: 'Future Prediction',
                             color: Colors.red.withOpacity(0.6),
                             borderColor: Colors.red,
                             borderWidth: 2,

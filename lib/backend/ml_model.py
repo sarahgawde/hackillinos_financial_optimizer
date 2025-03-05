@@ -23,7 +23,7 @@ def predict_spending(timeseries):
         df['WITHDRAWAL AMT'] = df['WITHDRAWAL AMT'].diff().dropna()
 
     # Fit SARIMA model
-    model = SARIMAX(df['WITHDRAWAL AMT'], order=(1,1,1), seasonal_order=(1,1,1,15))
+    model = SARIMAX(df['WITHDRAWAL AMT'], order=(1,1,1), seasonal_order=(1,1,1,60))
     results = model.fit()
 
     # Print model summary

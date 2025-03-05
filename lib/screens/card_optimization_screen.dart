@@ -81,6 +81,7 @@ class FlipCardWidget extends StatefulWidget {
   _FlipCardWidgetState createState() => _FlipCardWidgetState();
 }
 
+
 class _FlipCardWidgetState extends State<FlipCardWidget> {
   bool _isFlipped = false;
 
@@ -92,52 +93,66 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _flipCard,
-      child: AnimatedSwitcher(
-        duration: Duration(milliseconds: 500),
-        transitionBuilder: (Widget child, Animation<double> animation) {
-          return RotationTransition(
-            turns: Tween(begin: 0.5, end: 1.0).animate(animation),
-            child: child,
-          );
-        },
-        child: _isFlipped
-            ? Card(
-                key: ValueKey<bool>(_isFlipped),
-                color: Color(0xCCC7BF),
-                child: Container(
-                  height: 300,
-                  padding: EdgeInsets.all(16),
-                  child: Center(
-                    child: Text(
-                      widget.recommendation.reason,
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                      textAlign: TextAlign.center,
-                    ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0), // Adds space between cards
+      child: GestureDetector(
+        onTap: _flipCard,
+        child: AnimatedSwitcher(
+          duration: Duration(milliseconds: 500),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return RotationTransition(
+              turns: Tween(begin: 0.5, end: 1.0).animate(animation),
+              child: child,
+            );
+          },
+          child: _isFlipped
+              ? Card(
+                  key: ValueKey<bool>(_isFlipped),
+                  color: Color(0xFFC7BFCC),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(color: Color(0xFF003E5B), width: 2), // Blue border
                   ),
-                ),
-              )
-            : Card(
-                key: ValueKey<bool>(_isFlipped),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      widget.recommendation.cardImage, // Placeholder for card image
-                      width: double.infinity,
-                      height: 300,
-                      fit: BoxFit.cover,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 300,
+                    padding: EdgeInsets.all(16),
+                    child: Center(
                       child: Text(
-                        widget.recommendation.cardName,
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        widget.recommendation.reason,
+                        style: TextStyle(color: Color(0xFF003E5B), fontSize: 14),
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                  ],
+                  ),
+                )
+              : Card(
+                  key: ValueKey<bool>(_isFlipped),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(color: Color(0xFF003E5B), width: 2), // Blue border
+                  ),
+                  child: Column(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.vertical(top: Radius.circular(12)), // Match Card's top corners
+                        child: Image.asset(
+                          widget.recommendation.cardImage,
+                          width: double.infinity,
+                          height: 270,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          widget.recommendation.cardName,
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+        ),
       ),
     );
   }

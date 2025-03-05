@@ -148,3 +148,4 @@ def generate_card_recommendation(transactions):
     print(parsed_cards)
 
     return parsed_cards
+

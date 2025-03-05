@@ -53,7 +53,12 @@ def spending_analysis(account_no: str):
 
     prediction = predict_spending(user_transactions)
     prediction = [ p/84 for p in prediction]
-    insight = "You're likely to exceed your budget in the next month!"
+    mean_prediction = sum(prediction) / len(prediction)
+    mean_history = sum(amount[-50:]) / len(amount[-50:])
+    if mean_prediction > mean_history:
+        insight = "You're likely to exceed your budget in the next month!"
+    else:
+        insight = "You're likely within your budget in the next month!"
 
     return {
         "account_no": account_no,
